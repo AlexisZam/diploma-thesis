@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "diploma-thesis"
+version = "0.1.0"
+description = ""
+authors = ["Alexis Zamanis <alexiszamanis1997@gmail.com>"]
+readme = "README.md"
+packages = [{include = "diploma_thesis", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
