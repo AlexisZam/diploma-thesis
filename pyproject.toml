@@ -9,6 +9,13 @@ packages = [{ include = "diploma_thesis", from = "src" }]
 [tool.poetry.dependencies]
 python = "^3.11"
 
+[tool.poetry.group.dev.dependencies]
+black = "^23.3.0"
+
+
+[tool.black]
+skip-magic-trailing-comma = true
+
 
 [build-system]
 requires = ["poetry-core"]
