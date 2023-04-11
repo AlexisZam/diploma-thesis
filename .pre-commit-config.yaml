@@ -27,3 +27,11 @@ repos:
     rev: v0.0.261
     hooks:
       - id: ruff
+  - repo: local
+    hooks:
+      - id: pylint
+        name: pylint
+        entry: pylint
+        language: system
+        require_serial: true
+        types_or: [python, pyi]
