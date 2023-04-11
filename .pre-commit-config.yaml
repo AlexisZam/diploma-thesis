@@ -18,3 +18,8 @@ repos:
     hooks:
       - id: black
         args: [--check, --color, --diff]
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.2.0
+    hooks:
+      - id: mypy
+        args: []
