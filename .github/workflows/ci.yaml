@@ -28,4 +28,7 @@ jobs:
           restore-keys: |
             pre-commit-python-${{ steps.setup-python.outputs.python-version }}
             pre-commit
-      - run: poetry run pre-commit run --all-files --color=always --show-diff-on-failure
+      - id: pre-commit
+        run: poetry run pre-commit run --all-files --color=always --show-diff-on-failure
+      - if: success() || failure() && steps.pre-commit.outcome == 'failure'
+        run: poetry run pytest --color=yes
