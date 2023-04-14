@@ -15,8 +15,16 @@ jobs:
         with:
           persist-credentials: false
       - run: pipx install poetry==1.4.2
-      - uses: actions/setup-python@v4
+      - id: setup-python
+        uses: actions/setup-python@v4
         with:
           python-version: 3.11
           cache: poetry
       - run: poetry install
+      - uses: actions/cache@v3
+        with:
+          path: ~/.cache/pre-commit
+          key: pre-commit-python-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('.pre-commit-config.yaml') }}
+          restore-keys: |
+            pre-commit-python-${{ steps.setup-python.outputs.python-version }}
+            pre-commit
