@@ -8,6 +8,9 @@ on:
       - main
   workflow_dispatch:
 permissions: {}
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.head.label || github.head_ref || github.ref }}
+  cancel-in-progress: true
 jobs:
   ci:
     runs-on: ubuntu-22.04
