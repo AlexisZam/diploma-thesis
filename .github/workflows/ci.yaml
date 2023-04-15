@@ -1,5 +1,6 @@
 name: ci
 on: [pull_request, push, workflow_dispatch]
+permissions: {}
 jobs:
   ci:
     runs-on: ubuntu-22.04
