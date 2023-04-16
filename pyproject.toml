@@ -10,7 +10,7 @@ packages = [{include = "diploma_thesis", from = "src"}]
 python = "^3.11"
 
 [tool.poetry.group.dev.dependencies]
-black = "^23.3.0"
+black = "^21"
 mypy = "^1.2.0"
 pre-commit = "^3.2.2"
 pylint = "^2.17.2"
@@ -65,11 +65,16 @@ max-line-length = 88
 
 
 [tool.pytest.ini_options]
-addopts = "--numprocesses=auto"
+addopts = ["--import-mode=importlib", "--dist=worksteal", "--numprocesses=auto"]
+testpaths = ["tests"]
 
 
 [tool.ruff]
 select = ["ALL"]
+target-version = "py311"
+
+[tool.ruff.pydocstyle]
+convention = "google"
 
 
 [build-system]
