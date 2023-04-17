@@ -7,4 +7,5 @@
 [![pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/pylint-dev/pylint)
 [![ruff](https://img.shields.io/badge/linting-ruff-red)](https://github.com/charliermarsh/ruff)
 [![bandit](https://img.shields.io/badge/security-bandit-yellow.svg)](https://github.com/PyCQA/bandit)
+[![cspell](https://img.shields.io/badge/spelling-cspell-brightgreen)](https://github.com/streetsidesoftware/cspell)
 [![pytest](https://img.shields.io/badge/testing-pytest-blue?logo=pytest)](https://github.com/pytest-dev/pytest)
