@@ -8,6 +8,21 @@ repos:
     hooks:
       - id: cspell
         args: []
+  - repo: https://github.com/python-jsonschema/check-jsonschema
+    rev: 0.22.0
+    hooks:
+      - id: check-dependabot
+      - id: check-github-workflows
+      - id: check-jsonschema
+        args: [--schemafile=https://raw.githubusercontent.com/DavidAnson/markdownlint/main/schema/markdownlint-config-schema.json]
+        files: ^\.markdownlint\.json$
+      - id: check-jsonschema
+        args: [--schemafile=https://json.schemastore.org/pre-commit-config.json]
+        files: ^\.pre-commit-config\.yaml$
+      - id: check-jsonschema
+        args: [--schemafile=https://json.schemastore.org/pyproject.json]
+        files: ^pyproject\.toml$
+        types_or: [toml]
   - repo: https://github.com/DavidAnson/markdownlint-cli2
     rev: v0.6.0
     hooks:
