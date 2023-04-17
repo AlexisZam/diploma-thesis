@@ -1,0 +1,14 @@
+{
+    "allowCompoundWords": true,
+    "minWordLength": 1,
+    "dictionaries": [
+        "words"
+    ],
+    "dictionaryDefinitions": [
+        {
+            "addWords": true,
+            "name": "words",
+            "path": "./.cspell/words.txt"
+        }
+    ]
+}

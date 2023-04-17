@@ -1,0 +1,14 @@
+cli
+docparams
+elif
+mccabe
+mypy
+numprocesses
+pipx
+pycache
+pyi
+pylint
+pyproject
+pytest
+xdist
+zamanis
