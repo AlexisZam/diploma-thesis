@@ -216,7 +216,7 @@ colorama = {version = "*", markers = "platform_system == \"Windows\""}
 name = "colorama"
 version = "0.4.6"
 description = "Cross-platform colored terminal text."
-category = "dev"
+category = "main"
 optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,!=3.6.*,>=2.7"
 files = [
@@ -881,6 +881,27 @@ files = [
 ]
 
 [[package]]
+name = "tqdm"
+version = "4.65.0"
+description = "Fast, Extensible Progress Meter"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "tqdm-4.65.0-py3-none-any.whl", hash = "sha256:c4f53a17fe37e132815abceec022631be8ffe1b9381c2e6e30aa70edc99e9671"},
+    {file = "tqdm-4.65.0.tar.gz", hash = "sha256:1871fb68a86b8fb3b59ca4cdd3dcccbc7e6d613eeed31f4c332531977b89beb5"},
+]
+
+[package.dependencies]
+colorama = {version = "*", markers = "platform_system == \"Windows\""}
+
+[package.extras]
+dev = ["py-make (>=0.1.0)", "twine", "wheel"]
+notebook = ["ipywidgets (>=6)"]
+slack = ["slack-sdk"]
+telegram = ["requests"]
+
+[[package]]
 name = "types-requests"
 version = "2.28.11.17"
 description = "Typing stubs for requests"
@@ -894,6 +915,18 @@ files = [
 
 [package.dependencies]
 types-urllib3 = "<1.27"
+
+[[package]]
+name = "types-tqdm"
+version = "4.65.0.1"
+description = "Typing stubs for tqdm"
+category = "dev"
+optional = false
+python-versions = "*"
+files = [
+    {file = "types-tqdm-4.65.0.1.tar.gz", hash = "sha256:972dd871b6b2b8ff32f1f0f6fdfdf5a4ba2b0b848453689391bec8bd858fb1c4"},
+    {file = "types_tqdm-4.65.0.1-py3-none-any.whl", hash = "sha256:4894fe2b1581374ce9bca3f23d53729e4409d69b352e3d5db5829fa19482962c"},
+]
 
 [[package]]
 name = "types-urllib3"
@@ -1045,4 +1078,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "1ac0503ef30bfc7e43351c7e1678c643c0f3e25ad17935db016773680d4317cb"
+content-hash = "45adb71799e30415f350d072f6c26f5b749558037885a1ed422c3921773ce60d"

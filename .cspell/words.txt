@@ -3,6 +3,7 @@ cli
 docparams
 elif
 mccabe
+miniters
 mypy
 numprocesses
 pipx
@@ -11,5 +12,6 @@ pyi
 pylint
 pyproject
 pytest
+tqdm
 xdist
 zamanis
