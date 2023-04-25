@@ -7,11 +7,13 @@ from typing import Self
 from urllib import parse
 
 import requests
+from tqdm import tqdm
 
 DIPLOMA_THESIS_CACHE = Path("~/.cache/diploma-thesis/").expanduser()
 DATA_CACHE = DIPLOMA_THESIS_CACHE.joinpath("data/")
 
 TIMEOUT = (3.05, 27)
+CHUNK_SIZE = 4096
 
 
 @dataclasses.dataclass(slots=True)
@@ -45,8 +47,14 @@ class DataLoader:
             return
         with requests.get(self.data_url, timeout=TIMEOUT, stream=True) as response:
             response.raise_for_status()
-            with self._data_archive.open(mode="bw") as data_archive:
-                for chunk in response.iter_content(chunk_size=None):
+            with tqdm.wrapattr(
+                self._data_archive.open(mode="bw"),
+                "write",
+                total=int(response.headers.get("content-length", 0)),
+                desc="Downloading " + self._data_archive.name,
+                miniters=1,
+            ) as data_archive:
+                for chunk in response.iter_content(chunk_size=CHUNK_SIZE):
                     data_archive.write(chunk)
 
     def _unpack_data_archive(self: Self) -> None:
