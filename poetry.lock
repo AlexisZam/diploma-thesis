@@ -637,14 +637,14 @@ gitdb = ">=4.0.1,<5"
 
 [[package]]
 name = "huggingface-hub"
-version = "0.14.0"
+version = "0.14.1"
 description = "Client library to download and publish models, datasets and other repos on the huggingface.co hub"
 category = "main"
 optional = false
 python-versions = ">=3.7.0"
 files = [
-    {file = "huggingface_hub-0.14.0-py3-none-any.whl", hash = "sha256:fa6a6139fe4a8a164bfd0cda90c225fe8471b47c12811738b6db8348a2f703a0"},
-    {file = "huggingface_hub-0.14.0.tar.gz", hash = "sha256:42eeab833284e3fc1d39263cf9c3d1bb36b129acdd8195838694d165e8dd6cae"},
+    {file = "huggingface_hub-0.14.1-py3-none-any.whl", hash = "sha256:9fc619170d800ff3793ad37c9757c255c8783051e1b5b00501205eb43ccc4f27"},
+    {file = "huggingface_hub-0.14.1.tar.gz", hash = "sha256:9ab899af8e10922eac65e290d60ab956882ab0bf643e3d990b1394b6b47b7fbc"},
 ]
 
 [package.dependencies]
