@@ -8,6 +8,7 @@ packages = [{ include = "diploma_thesis", from = "src" }]
 
 [tool.poetry.dependencies]
 python = "^3.11"
+dill = { git = "https://github.com/uqfoundation/dill.git" }
 requests = "^2.28.2"
 tqdm = "^4.65.0"
 
