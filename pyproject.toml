@@ -8,7 +8,7 @@ packages = [{ include = "diploma_thesis", from = "src" }]
 
 [tool.poetry.dependencies]
 python = "^3.11"
-datasets = "^2.11.0"
+datasets = "^2.12.0"
 dill = { git = "https://github.com/uqfoundation/dill.git" }
 requests = "^2.29.0"
 tqdm = "^4.65.0"
