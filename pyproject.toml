@@ -10,7 +10,7 @@ packages = [{ include = "diploma_thesis", from = "src" }]
 python = "^3.11"
 datasets = "^2.11.0"
 dill = { git = "https://github.com/uqfoundation/dill.git" }
-requests = "^2.29.0"
+requests = "^2.31.0"
 tqdm = "^4.65.0"
 
 [tool.poetry.group.dev.dependencies]
