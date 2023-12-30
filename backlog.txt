@@ -1,0 +1,76 @@
+    ruff --format=github .
+
+---
+
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v3
+        with:
+          name: code-coverage-report
+          path: output/test/code-coverage.html
+
+---
+
+taplo.toml
+
+---
+
+__init__.py
+tests/test_foo.py
+
+---
+
+.. image:: https://codecov.io/gh/pytest-dev/pytest/branch/main/graph/badge.svg
+    :target: https://codecov.io/gh/pytest-dev/pytest
+    :alt: Code coverage Status
+
+---
+
+.. image:: https://img.shields.io/ossf-scorecard/github.com/PyCQA/pylint?label=openssf%20scorecard&style=flat
+   :target: https://api.securityscorecards.dev/projects/github.com/PyCQA/pylint
+   :alt: OpenSSF Scorecard
+
+---
+
+<a href="https://coveralls.io/github/psf/black?branch=main"><img alt="Coverage Status" src="https://coveralls.io/repos/github/psf/black/badge.svg?branch=main"></a>
+
+---
+
+.. |Codacy-Grade| image:: https://app.codacy.com/project/badge/Grade/3f965571598f44549c7818f29cdcf177
+   :target: https://www.codacy.com/gh/tqdm/tqdm/dashboard
+
+---
+
+yaml
+json
+toml
+
+---
+
+update precommit hooks
+
+---
+
+  - repo: https://github.com/pylint-dev/pylint
+    rev:  v3.0.0a6
+    hooks:
+      - id: pylint
+
+---
+
+[tool.pytest.ini_options]
+addopts = ["--import-mode=importlib", "--dist=worksteal", "--numprocesses=auto"]
+
+---
+
+py.typed
+
+---
+
+3way -> 2way
+2way -/> 3way
+
+---
+
+assert by dataset size
+check the features
+check the labels

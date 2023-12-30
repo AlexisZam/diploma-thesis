@@ -21,6 +21,9 @@ DATA_CACHE = DIPLOMA_THESIS_CACHE.joinpath("data/")
 TIMEOUT = (3.05, 27)
 CHUNK_SIZE = 4096
 
+SPLITS = ("train", "validation", "test")
+PROCESSES = 20
+
 
 @dataclasses.dataclass(slots=True)
 class DataLoader(ABC):
@@ -28,17 +31,32 @@ class DataLoader(ABC):
 
     Attributes:
         data_url: The url of the data.
+        train_data_files: The relative paths to the files containing the train data.
+        validation_data_files: The relative paths to the files containing the validation
+          data.
+        test_data_files: The relative paths to the files containing the test data.
         premise_column: The name of the premise column.
         hypothesis_column: The name of the hypothesis column.
         label_column: The name of the label column.
     """
 
     data_url: str
+    train_data_files: str | Sequence[str] | None = None
+    validation_data_files: str | Sequence[str] | None = None
+    test_data_files: str | Sequence[str] | None = None
     premise_column: str = "premise"
     hypothesis_column: str = "hypothesis"
     label_column: str = "label"
 
     def __post_init__(self: Self) -> None:
+        """Post init."""
+        if (
+            self.train_data_files is None
+            and self.validation_data_files is None
+            and self.test_data_files is None
+        ):
+            msg = "At least one of train, validation or test must be specified."
+            raise ValueError(msg)
 
     @property
     def _data_url_path(self: Self) -> PurePath:
@@ -54,6 +72,43 @@ class DataLoader(ABC):
 
     @property
     def _data_files(self: Self) -> dict[str, str | list[str]]:
+        return {
+            split: (
+                str(self._data_dir.joinpath(paths))
+                if isinstance(paths, str)
+                else [str(self._data_dir.joinpath(path)) for path in paths]
+            )
+            for split in SPLITS
+            if (paths := getattr(self, split)) is not None
+        }
+
+    @property
+    def _data_files_suffix(self: Self) -> str:
+        path = list(self._data_files.values())[0]
+        if isinstance(path, list):
+            path = path[0]
+        return PurePath(path).suffix
+
+    @property
+    def _data_files_type(self: Self) -> str:
+        match self._data_files_suffix:
+            case ".csv" | ".tsv":
+                return "csv"
+            case ".json" | ".jsonl":
+                return "json"
+            case _:
+                raise ValueError("Unknown file suffix: " + self._data_files_suffix)
+
+    @property
+    def _data_files_delimiter(self: Self) -> str | None:
+        match self._data_files_suffix:
+            case ".csv":
+                return ","
+            case ".tsv":
+                return "\t"
+            case _:
+                return None
+
     @property
     def _column_mapping(self: Self) -> dict[str, str]:
         return {
@@ -69,6 +124,7 @@ class DataLoader(ABC):
     @property
     @abc.abstractmethod
     def _label_mapping(self: Self) -> dict[str | int, str]:
+        pass
 
     @property
     def _labels(self: Self) -> list[str]:
@@ -98,10 +154,34 @@ class DataLoader(ABC):
             return
         shutil.unpack_archive(self._data_archive, extract_dir=self._data_dir)
 
+    def _load_data_files(self: Self, split: str | None = None) -> Dataset | DatasetDict:
+        config_kwargs = {}
+        if self._data_files_delimiter is not None:
+            config_kwargs = {
+                "delimiter": self._data_files_delimiter,
+                "quoting": csv.QUOTE_NONE,
+            }
         return (
             datasets.load_dataset(
+                self._data_files_type,
                 data_files=self._data_files,
+                split=split,
+                **config_kwargs,
+            )
             .rename_columns(self._column_mapping)
+            .select_columns(self._columns)
+            .filter(
+                lambda label: label in self._labels,
+                input_columns="label",
+                num_proc=PROCESSES,
+                desc="Filtering NA labels",
+            )
+            .map(
+                lambda label: {"label": self._label_mapping[label]},
+                input_columns="label",
+                num_proc=PROCESSES,
+                desc="Renaming labels",
+            )
             .class_encode_column("label")
         )
 
@@ -112,18 +192,25 @@ class DataLoader(ABC):
         return self._load_data_files(split=split)
 
     def load_dataset(self: Self, split: str) -> Dataset:
+        """Load split of the data.
 
         Args:
+            split: The name of the split.
         """
         return self._load_data(split=split)
 
     def load_dataset_dict(self: Self) -> DatasetDict:
+        """Load the data."""
         return self._load_data()
 
 
 @dataclasses.dataclass(slots=True)
+class RTEDataLoader(DataLoader):
+    """RTE data loader.
 
     Attributes:
+        entailment_label: The label of the entailment class.
+        not_entailment_label: The label of the not_entailment class.
     """
 
     entailment_label: str | int = "entailment"
@@ -138,8 +225,13 @@ class DataLoader(ABC):
 
 
 @dataclasses.dataclass(slots=True)
+class NLIDataLoader(DataLoader):
+    """NLI data loader.
 
     Attributes:
+        entailment_label: The label of the entailment class.
+        neutral_label: The label of the neutral class.
+        contradiction_label: The label of the contradiction class.
     """
 
     entailment_label: str | int = "entailment"
@@ -153,3 +245,17 @@ class DataLoader(ABC):
             self.neutral_label: "neutral",
             self.contradiction_label: "contradiction",
         }
+
+
+if __name__ == "__main__":
+    print(
+        NLIDataLoader(
+            "https://nlp.stanford.edu/projects/snli/snli_1.0.zip",
+            train="snli_1.0/snli_1.0_train.jsonl",
+            validation="snli_1.0/snli_1.0_dev.jsonl",
+            test="snli_1.0/snli_1.0_test.jsonl",
+            premise_column="sentence1",
+            hypothesis_column="sentence2",
+            label_column="gold_label",
+        ).load_dataset_dict()["validation"][66]
+    )

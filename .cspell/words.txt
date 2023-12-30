@@ -1,10 +1,13 @@
+anli
 bw
 cli
 docparams
 elif
 mccabe
 miniters
+multinli
 mypy
+nli
 numprocesses
 numpy
 pipx
@@ -14,6 +17,10 @@ pyi
 pylint
 pyproject
 pytest
+qnli
+snli
 tqdm
+tsv
+wnli
 xdist
 zamanis
