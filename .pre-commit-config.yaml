@@ -1,0 +1,30 @@
+repos:
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.36.0
+    hooks:
+      - id: yamllint
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-added-large-files
+        args: [--enforce-all]
+      - id: check-executables-have-shebangs
+      - id: check-merge-conflict
+        args: [--assume-in-merge]
+      - id: check-shebang-scripts-are-executable
+      - id: check-symlinks
+      - id: check-toml
+      - id: check-vcs-permalinks
+      - id: destroyed-symlinks
+      - id: detect-private-key
+      - id: end-of-file-fixer
+      - id: fix-byte-order-marker
+      - id: forbid-submodules
+      - id: mixed-line-ending
+        args: [--fix=lf]
+      - id: trailing-whitespace
+  - repo: https://github.com/python-poetry/poetry
+    rev: 2.1.1
+    hooks:
+      - id: poetry-check
+      - id: poetry-lock
