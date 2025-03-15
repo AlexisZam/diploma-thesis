@@ -9,3 +9,17 @@ requires-poetry = "2.1.1"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "4.1.0"
+
+[tool.ruff]
+fix = true
+preview = true
+required-version = "0.11.0"
+
+[tool.ruff.format]
+docstring-code-format = true
+line-ending = "lf"
+skip-magic-trailing-comma = true
+
+[tool.ruff.lint]
+ignore = ["CPY"]
+select = ["ALL"]
