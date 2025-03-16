@@ -4,6 +4,9 @@ name = "diploma-thesis"
 requires-python = "==3.13.2"
 version = "0.1.0"
 
+[project.optional-dependencies]
+dev = ["pre-commit==4.1.0"]
+
 [tool.poetry]
 package-mode = false
 requires-poetry = "2.1.1"
@@ -12,9 +15,6 @@ requires-poetry = "2.1.1"
 name = "torch"
 priority = "supplemental"
 url = "https://download.pytorch.org/whl/cpu"
-
-[tool.poetry.group.dev.dependencies]
-pre-commit = "4.1.0"
 
 [tool.ruff]
 fix = true
