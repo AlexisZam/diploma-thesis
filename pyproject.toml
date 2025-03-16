@@ -1,5 +1,5 @@
 [project]
-dependencies = ["torch==2.6.0+cpu", "transformers==4.49.0"]
+dependencies = ["torch==2.6.0+cu126", "transformers==4.49.0"]
 name = "diploma-thesis"
 requires-python = "==3.13.2"
 version = "0.1.0"
@@ -14,7 +14,7 @@ requires-poetry = "2.1.1"
 [[tool.poetry.source]]
 name = "torch"
 priority = "supplemental"
-url = "https://download.pytorch.org/whl/cpu"
+url = "https://download.pytorch.org/whl/cu126"
 
 [tool.ruff]
 fix = true
