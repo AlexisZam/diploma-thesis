@@ -1,5 +1,5 @@
 [project]
-dependencies = ["transformers==4.49.0"]
+dependencies = ["torch==2.6.0+cpu", "transformers==4.49.0"]
 name = "diploma-thesis"
 requires-python = "==3.13.2"
 version = "0.1.0"
@@ -7,6 +7,11 @@ version = "0.1.0"
 [tool.poetry]
 package-mode = false
 requires-poetry = "2.1.1"
+
+[[tool.poetry.source]]
+name = "torch"
+priority = "supplemental"
+url = "https://download.pytorch.org/whl/cpu"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "4.1.0"
